@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -64,7 +65,7 @@ export function Sidebar() {
 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
         {navItems.map((item) => (
-          <a
+          <Link
             key={item.name}
             href={item.href}
             className={cn(
@@ -92,7 +93,7 @@ export function Sidebar() {
             </AnimatePresence>
             {/* Subtle glow effect on hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-          </a>
+          </Link>
         ))}
       </nav>
 
