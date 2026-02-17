@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { LayoutDashboard, Bell, Users, BarChart3, Shield, Zap } from 'lucide-react';
+import { Beams } from '../ui/beams-background';
+import { GlowingEffect } from '../ui/glowing-effect';
 
 const features = [
   {
@@ -12,7 +13,7 @@ const features = [
   },
   {
     icon: Bell,
-    title: 'Real-time Notifications',
+    title: 'Smart Notifications',
     description: 'Stay updated with instant notifications for task assignments and deadline reminders.',
   },
   {
@@ -39,46 +40,76 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section id="features" className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-10" />
+
+      {/* Beams Background */}
+      <div className="absolute inset-0 z-0 opacity-50 pointer-events-none">
+        <Beams
+          beamWidth={4}
+          beamHeight={10}
+          beamNumber={6}
+          speed={0.8}
+          noiseIntensity={1.2}
+          rotation={-20}
+          scale={0.3}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Powerful Features
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
+            <span className="text-xs font-semibold text-white/90 tracking-widest uppercase">Features</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+            Powerful <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Features</span>
           </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
             Everything you need to manage your tasks and boost your productivity
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              whileHover={{ y: -6 }}
+              className="group"
             >
-              <Card className="h-full border-border bg-card/50 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-text-primary">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-text-secondary">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+              <div className="relative h-full p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-white/5 overflow-hidden">
+                <GlowingEffect
+                  spread={40}
+                  glow={true}
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={3}
+                />
+
+                {/* Subtle top line - removal might be better if using glowing effect, keeping for now or remove? Let's keep it but maybe it conflicts visually. User asked for effect on all cards. */}
+                <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center mb-5 group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300 relative z-10">
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+
+                <h3 className="text-lg font-bold text-white mb-3 relative z-10">
+                  {feature.title}
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed relative z-10">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

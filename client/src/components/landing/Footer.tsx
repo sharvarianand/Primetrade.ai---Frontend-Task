@@ -35,32 +35,35 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-surface border-t border-border py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+    <footer className="relative border-t border-white/10 py-16 px-4 sm:px-6 lg:px-8 bg-black">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center space-x-3 mb-6 cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
+                <span className="text-black font-bold text-xl">P</span>
               </div>
-              <span className="text-text-primary font-semibold">PrimeTrade</span>
-            </div>
-            <p className="text-sm text-text-secondary mb-4">
+              <span className="text-white font-bold text-lg">PrimeTrade</span>
+            </motion.div>
+            <p className="text-sm text-white/60 mb-6 leading-relaxed">
               Empowering teams to achieve more with intelligent task management.
             </p>
           </div>
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="font-semibold text-text-primary mb-4 capitalize">
+              <h3 className="font-bold text-white/90 mb-5 capitalize text-sm tracking-wider uppercase">
                 {category}
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-sm text-text-secondary hover:text-primary transition-colors"
+                      className="text-sm text-white/50 hover:text-white transition-colors duration-300"
                     >
                       {link.name}
                     </a>
@@ -71,17 +74,17 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-border">
-          <p className="text-sm text-text-secondary mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
+          <p className="text-sm text-white/40 mb-6 md:mb-0">
             © {currentYear} PrimeTrade. All rights reserved.
           </p>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
-                className="p-2 rounded-lg bg-background border border-border hover:border-primary/50 hover:bg-primary/10 transition-all text-text-secondary hover:text-primary"
+                className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 transition-all duration-300 text-white/60 hover:text-white hover:scale-105"
                 aria-label={social.label}
               >
                 <social.icon size={18} />

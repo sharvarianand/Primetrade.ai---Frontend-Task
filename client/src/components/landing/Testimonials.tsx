@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/Card';
 import { Star, Quote } from 'lucide-react';
+import { Beams } from '../ui/beams-background';
+import { GlowingEffect } from '../ui/glowing-effect';
 
 const testimonials = [
   {
@@ -30,24 +31,40 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-surface/50">
-      <div className="max-w-6xl mx-auto">
+    <section id="testimonials" className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
+      {/* Beams Background */}
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+        <Beams
+          beamWidth={5}
+          beamHeight={12}
+          beamNumber={4}
+          speed={0.5}
+          noiseIntensity={0.8}
+          rotation={45}
+          scale={0.4}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Loved by Thousands
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
+            <span className="text-xs font-semibold text-white/90 tracking-widest uppercase">Testimonials</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+            Loved by <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Thousands</span>
           </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
             See what our users have to say about PrimeTrade Tasks
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -55,33 +72,44 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+              className="group"
             >
-              <Card className="h-full border-border bg-card/50 backdrop-blur-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold text-sm">
-                      {testimonial.avatar}
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="font-semibold text-text-primary text-sm">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-xs text-text-secondary">{testimonial.role}</p>
-                    </div>
-                  </div>
+              <div className="relative h-full p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-white/5 overflow-hidden">
+                <GlowingEffect
+                  spread={40}
+                  glow={true}
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={3}
+                />
 
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-warning text-warning" />
-                    ))}
-                  </div>
+                {/* Quote watermark */}
+                <Quote className="absolute top-4 right-4 w-10 h-10 text-white/5 group-hover:text-white/10 transition-colors duration-500 relative z-10" />
 
-                  <p className="text-text-secondary text-sm relative">
-                    <Quote className="absolute -top-2 -left-1 w-6 h-6 text-primary/20" />
-                    {testimonial.content}
-                  </p>
-                </CardContent>
-              </Card>
+                <div className="flex items-center mb-5 relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform duration-300">
+                    {testimonial.avatar}
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="font-bold text-white text-sm">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-xs text-white/50 font-medium">{testimonial.role}</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-0.5 mb-4 relative z-10">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-white text-white" />
+                  ))}
+                </div>
+
+                <p className="text-white/70 text-sm leading-relaxed relative z-10">
+                  {testimonial.content}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

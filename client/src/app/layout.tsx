@@ -4,7 +4,11 @@ import './globals.css';
 import { Toaster } from 'sonner';
 import { AuthProvider } from '@/context/AuthContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'PrimeTrade Tasks - Manage Tasks, Boost Productivity',
@@ -17,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={inter.variable}>
+      <body className={`${inter.className} bg-black text-white`}>
         <AuthProvider>
           {children}
         </AuthProvider>
@@ -28,9 +32,9 @@ export default function RootLayout({
           closeButton
           toastOptions={{
             style: {
-              background: '#1f2937',
-              color: '#f9fafb',
-              border: '1px solid #374151',
+              background: 'hsl(var(--card))',
+              color: 'hsl(var(--card-foreground))',
+              border: '1px solid hsl(var(--border))',
             },
           }}
         />
