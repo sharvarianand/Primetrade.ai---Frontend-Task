@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginInput } from '@/lib/validations';
 import { useAuth } from '@/hooks/useAuth';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { toast } from 'sonner';
@@ -103,9 +103,9 @@ export function LoginForm() {
           </div>
 
           <div className="flex items-center justify-between">
-            <label className="flex items-center space-x-2 text-sm text-text-secondary cursor-pointer">
-              <input type="checkbox" className="rounded border-border" />
-              <span>Remember me</span>
+            <label className="flex items-center space-x-2 text-sm text-text-primary cursor-pointer group">
+              <input type="checkbox" className="rounded border-border bg-transparent accent-white cursor-pointer" />
+              <span className="text-text-secondary group-hover:text-text-primary transition-colors">Remember me</span>
             </label>
             <a
               href="#"

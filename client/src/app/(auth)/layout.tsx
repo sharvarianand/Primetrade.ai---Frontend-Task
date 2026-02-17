@@ -28,7 +28,7 @@ export default function AuthLayout({
 
   return (
     <div className="min-h-screen bg-background flex">
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary items-center justify-center p-12">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-primary items-center justify-center p-12 dark">
         <div className="max-w-md text-white">
           <h1 className="text-4xl font-bold mb-6">
             Manage Tasks.<br />Boost Productivity.
@@ -59,7 +59,7 @@ export default function AuthLayout({
         </div>
       </div>
 
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         {children}
       </div>
     </div>

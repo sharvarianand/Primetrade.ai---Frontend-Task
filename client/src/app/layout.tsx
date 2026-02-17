@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'PrimeTrade Tasks - Manage Tasks, Boost Productivity',
   description: 'The ultimate task management platform for teams and individuals.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} dark`}>
       <body className={`${inter.className} bg-black text-white`}>
         <AuthProvider>
           {children}

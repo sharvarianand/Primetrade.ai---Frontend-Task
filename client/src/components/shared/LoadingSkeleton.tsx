@@ -43,14 +43,15 @@ export function LoadingSkeleton({ variant = 'card', count = 1 }: LoadingSkeleton
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.1 }}
       className="space-y-4"
     >
       {Array.from({ length: count }).map((_, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.05 }}
+          transition={{ duration: 0.15, delay: i * 0.02 }}
           className="bg-card/50 rounded-lg border border-border p-4"
         >
           {renderSkeleton()}
