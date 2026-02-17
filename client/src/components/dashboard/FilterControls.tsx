@@ -1,7 +1,7 @@
 'use client';
 
 import { Select } from '@/components/ui/Select';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Search, X } from 'lucide-react';
 
 interface FilterControlsProps {

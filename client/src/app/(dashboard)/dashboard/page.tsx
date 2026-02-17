@@ -6,64 +6,25 @@ import { TaskCard } from '@/components/dashboard/TaskCard';
 import { LoadingSkeleton } from '@/components/shared/LoadingSkeleton';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { useAuth } from '@/hooks/useAuth';
-import axios from '@/lib/axios';
+import { useTasks } from '@/context/TaskContext';
 import { motion } from 'framer-motion';
 import { Plus, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils';
 import type { Task } from '@/types';
 
+import { TaskForm } from '@/components/dashboard/TaskForm';
+
 export default function DashboardPage() {
   const { user } = useAuth();
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [stats, setStats] = useState({
-    total: 0,
-    pending: 0,
-    inProgress: 0,
-    completed: 0,
-    highPriority: 0,
-  });
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  const fetchDashboardData = async () => {
-    try {
-      setIsLoading(true);
-      const [tasksResponse, statsResponse] = await Promise.all([
-        axios.get('/tasks?limit=5'),
-        axios.get('/tasks/stats'),
-      ]);
-      setTasks(tasksResponse.data.data.tasks);
-      setStats(statsResponse.data.data);
-    } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
-      toast.error('Failed to load dashboard data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDeleteTask = async (id: string) => {
-    try {
-      await axios.delete(`/tasks/${id}`);
-      setTasks((prev) => prev.filter((task) => task.id !== id));
-      await fetchDashboardData();
-      toast.success('Task deleted successfully');
-    } catch (error) {
-      console.error('Failed to delete task:', error);
-      toast.error('Failed to delete task');
-    }
-  };
+  const { tasks, stats, loading, deleteTask, createTask } = useTasks();
+  const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
 
   const handleEditTask = (task: Task) => {
-    toast.info('Edit feature - navigate to Tasks page');
+    window.location.href = `/tasks`; // Redirect to tasks page for now
   };
 
-  if (isLoading) {
+  if (loading) {
     return <LoadingSkeleton variant="card" count={4} />;
   }
 
@@ -76,35 +37,45 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.15 }}
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold text-text-primary mb-2">
+          <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">
             Welcome back, {user?.name?.split(' ')[0]}!
           </h1>
-          <div className="flex items-center space-x-2 text-text-secondary">
+          <div className="flex items-center space-x-2 text-white/60">
             <Calendar size={16} />
             <span>{currentDate}</span>
           </div>
         </div>
-        <Button onClick={() => window.location.href = '/tasks'}>
+        <Button
+          onClick={() => setIsTaskFormOpen(true)}
+          className="bg-white text-black hover:bg-white/90 shadow-lg shadow-white/10 transition-all hover:scale-105 active:scale-95"
+        >
           <Plus className="mr-2" size={20} />
           New Task
         </Button>
       </motion.div>
 
+      <TaskForm
+        isOpen={isTaskFormOpen}
+        onClose={() => setIsTaskFormOpen(false)}
+        onSubmit={createTask}
+      />
+
       <StatsCards stats={stats} />
 
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-text-primary">Recent Tasks</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-white">Recent Tasks</h2>
           <button
             onClick={() => window.location.href = '/tasks'}
-            className="text-primary text-sm hover:underline"
+            className="text-white/60 text-sm hover:text-white transition-colors flex items-center gap-1 group"
           >
-            View All →
+            View All <span className="group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </div>
 
@@ -123,7 +94,7 @@ export default function DashboardPage() {
                 task={task}
                 index={index}
                 onEdit={handleEditTask}
-                onDelete={handleDeleteTask}
+                onDelete={deleteTask}
               />
             ))}
           </div>

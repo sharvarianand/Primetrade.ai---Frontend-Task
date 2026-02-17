@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
 import { Edit2, Trash2, Calendar } from 'lucide-react';
 import { formatDate } from '@/lib/utils';

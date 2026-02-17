@@ -35,9 +35,9 @@ export function Sidebar() {
       initial={{ width: isCollapsed ? 64 : 260 }}
       animate={{ width: isCollapsed ? 64 : 260 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="bg-surface border-r border-border h-screen fixed left-0 top-0 z-50 flex flex-col"
+      className="bg-black/40 backdrop-blur-xl border-r border-white/10 h-screen fixed left-0 top-0 z-50 flex flex-col shadow-2xl transition-all duration-300"
     >
-      <div className="flex items-center justify-between p-4 border-b border-border">
+      <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/20">
         <AnimatePresence mode="wait">
           {!isCollapsed && (
             <motion.div
@@ -45,37 +45,37 @@ export function Sidebar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-3"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
+              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-lg shadow-white/20">
+                <span className="text-black font-bold text-lg">P</span>
               </div>
-              <span className="text-text-primary font-semibold">PrimeTrade</span>
+              <span className="text-white font-bold text-lg tracking-tight">PrimeTrade</span>
             </motion.div>
           )}
         </AnimatePresence>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1 rounded-lg hover:bg-background transition-colors text-text-primary"
+          className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white"
         >
           {isCollapsed ? <Menu size={20} /> : <X size={20} />}
         </button>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
         {navItems.map((item) => (
           <a
             key={item.name}
             href={item.href}
             className={cn(
-              'flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200',
-              'hover:bg-background/50 group',
-              'text-text-secondary hover:text-text-primary'
+              'flex items-center space-x-3 px-3 py-3 rounded-xl transition-all duration-300',
+              'hover:bg-white/10 hover:shadow-lg hover:shadow-white/5 group relative overflow-hidden',
+              'text-white/60 hover:text-white border border-transparent hover:border-white/5'
             )}
           >
             <item.icon
               size={20}
-              className={cn('flex-shrink-0 group-hover:text-primary transition-colors')}
+              className={cn('flex-shrink-0 group-hover:text-white transition-colors')}
             />
             <AnimatePresence mode="wait">
               {!isCollapsed && (
@@ -84,22 +84,24 @@ export function Sidebar() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="font-medium"
+                  className="font-medium text-sm tracking-wide"
                 >
                   {item.name}
                 </motion.span>
               )}
             </AnimatePresence>
+            {/* Subtle glow effect on hover */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
           </a>
         ))}
       </nav>
 
-      <div className="p-3 border-t border-border">
+      <div className="p-4 border-t border-white/10 bg-black/20">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-danger/10 group text-text-secondary hover:text-danger"
+          className="w-full flex items-center space-x-3 px-3 py-3 rounded-xl transition-all duration-300 hover:bg-red-500/10 hover:border-red-500/20 border border-transparent group text-white/60 hover:text-red-400"
         >
-          <LogOut size={20} className="flex-shrink-0" />
+          <LogOut size={20} className="flex-shrink-0 group-hover:text-red-400 transition-colors" />
           <AnimatePresence mode="wait">
             {!isCollapsed && (
               <motion.span
@@ -107,7 +109,7 @@ export function Sidebar() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
-                className="font-medium"
+                className="font-medium text-sm"
               >
                 Logout
               </motion.span>

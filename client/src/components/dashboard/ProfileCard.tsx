@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { User, Mail, Calendar, Camera } from 'lucide-react';
 import { getInitials, formatDate } from '@/lib/utils';
 import type { User as UserType } from '@/types';
@@ -37,21 +37,21 @@ export function ProfileCard({ user, isEditing = false, onEditToggle }: ProfileCa
                 {user.name ? getInitials(user.name) : 'U'}
               </div>
             )}
-            
+
             <div className="flex-1 text-center sm:text-left">
               <h2 className="text-xl font-semibold text-text-primary mb-1">
                 {user.name}
               </h2>
               <p className="text-sm text-text-secondary mb-3">{user.email}</p>
-              
+
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-sm text-text-secondary">
                 <div className="flex items-center space-x-1">
                   <Calendar size={16} className="text-primary" />
-                  <span>Joined {formatDate(user.createdAt)}</span>
+                  <span className="text-white/80">Joined {new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
                 </div>
               </div>
             </div>
-            
+
             {!isEditing && onEditToggle && (
               <Button onClick={onEditToggle} size="sm">
                 Edit Profile

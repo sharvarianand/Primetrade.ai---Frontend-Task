@@ -17,33 +17,39 @@ export function Topbar({ onSearch }: { onSearch?: (value: string) => void }) {
   };
 
   return (
-    <header className="fixed top-0 right-0 left-[260px] h-16 bg-surface/80 backdrop-blur-lg border-b border-border z-40 px-6 flex items-center justify-between transition-all duration-300">
+    <header className="fixed top-0 right-0 left-[260px] h-20 bg-black/40 backdrop-blur-xl border-b border-white/10 z-40 px-8 flex items-center justify-between transition-all duration-300">
       <div className="flex-1 max-w-xl">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary" />
+        <div className="relative group">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 group-focus-within:text-white/80 transition-colors" />
           <Input
             type="text"
             placeholder="Search tasks..."
             value={searchValue}
             onChange={handleSearch}
-            className="pl-10 bg-background border-border"
+            className="pl-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-1 focus-visible:ring-white/20 focus-visible:border-white/20 hover:bg-white/10 transition-all rounded-xl"
           />
         </div>
       </div>
 
-      <div className="flex items-center space-x-4">
-        <button className="relative p-2 rounded-lg hover:bg-background/50 transition-colors text-text-secondary hover:text-text-primary">
+      <div className="flex items-center space-x-6">
+        <button
+          className="relative p-2.5 rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-white border border-transparent hover:border-white/5"
+          onClick={() => {
+            // In a real app, this would open a notification dropdown
+            import('sonner').then(mod => mod.toast.info('You have 3 unread notifications'));
+          }}
+        >
           <Bell size={20} />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full" />
+          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)] animate-pulse" />
         </button>
 
-        <div className="flex items-center space-x-3 pl-4 border-l border-border">
-          <div className="w-9 h-9 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold text-sm">
+        <div className="flex items-center space-x-4 pl-6 border-l border-white/10">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center text-white font-semibold text-sm shadow-inner group cursor-pointer hover:border-white/20 transition-all">
             {user?.name ? getInitials(user.name) : 'U'}
           </div>
           <div className="hidden md:block">
-            <p className="text-sm font-medium text-text-primary">{user?.name}</p>
-            <p className="text-xs text-text-secondary">{user?.email}</p>
+            <p className="text-sm font-medium text-white">{user?.name}</p>
+            <p className="text-xs text-white/50">{user?.email}</p>
           </div>
         </div>
       </div>
