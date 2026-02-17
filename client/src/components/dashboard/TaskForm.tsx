@@ -17,13 +17,7 @@ interface TaskFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: Partial<TaskInput>) => Promise<void>;
-  initialData?: {
-    title?: string;
-    description?: string;
-    status?: string;
-    priority?: string;
-    dueDate?: string;
-  };
+  initialData?: Partial<TaskInput>;
   isEdit?: boolean;
 }
 

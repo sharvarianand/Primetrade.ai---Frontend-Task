@@ -82,10 +82,7 @@ export default function ProfilePage() {
                 {user.name}
               </h2>
               <p className="text-text-secondary">{user.email}</p>
-              <div className="flex items-center space-x-2 mt-4 text-text-secondary text-sm">
-                <Calendar size={16} />
-                <span>Joined {formatDate(user.createdAt)}</span>
-              </div>
+
             </div>
             {!isEditing && (
               <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>

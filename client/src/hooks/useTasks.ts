@@ -9,6 +9,7 @@ export function useTasks(filters: Record<string, any> = {}) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const filtersString = JSON.stringify(filters);
   const fetchTasks = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -27,7 +28,7 @@ export function useTasks(filters: Record<string, any> = {}) {
     } finally {
       setIsLoading(false);
     }
-  }, [filters]); // Assuming filters object reference changes only when needed, or deep compare might be better but this satisfies lint.
+  }, [filtersString]); // Assuming filters object reference changes only when needed, or deep compare might be better but this satisfies lint.
 
   useEffect(() => {
     fetchTasks();

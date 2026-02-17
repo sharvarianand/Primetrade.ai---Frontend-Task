@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { TaskCard } from '@/components/dashboard/TaskCard';
 import { TaskList } from '@/components/dashboard/TaskList';
 import { TaskForm } from '@/components/dashboard/TaskForm';
@@ -29,13 +29,13 @@ export default function TasksPage() {
 
   const debouncedSearch = useDebounce(searchQuery, 300);
 
-  const filters = {
+  const filters = useMemo(() => ({
     search: debouncedSearch,
     status: statusFilter,
     priority: priorityFilter,
     page: 1,
     limit: 50,
-  };
+  }), [debouncedSearch, statusFilter, priorityFilter]);
 
   const { tasks, isLoading, createTask, updateTask, deleteTask, refetch } = useTasks(filters);
 
@@ -224,8 +224,8 @@ export default function TasksPage() {
         initialData={editingTask ? {
           title: editingTask.title,
           description: editingTask.description,
-          status: editingTask.status as any,
-          priority: editingTask.priority as any,
+          status: editingTask.status,
+          priority: editingTask.priority,
           dueDate: editingTask.dueDate || undefined
         } : undefined}
         isEdit={!!editingTask}
