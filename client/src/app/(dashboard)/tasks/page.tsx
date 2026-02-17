@@ -221,7 +221,13 @@ export default function TasksPage() {
         isOpen={isTaskFormOpen}
         onClose={handleFormClose}
         onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
-        initialData={editingTask || undefined}
+        initialData={editingTask ? {
+          title: editingTask.title,
+          description: editingTask.description,
+          status: editingTask.status as any,
+          priority: editingTask.priority as any,
+          dueDate: editingTask.dueDate || undefined
+        } : undefined}
         isEdit={!!editingTask}
       />
 

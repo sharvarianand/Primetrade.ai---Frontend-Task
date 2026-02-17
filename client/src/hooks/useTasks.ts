@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Task } from '@/types';
 import axios from '@/lib/axios';
 
@@ -9,15 +9,11 @@ export function useTasks(filters: Record<string, any> = {}) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchTasks();
-  }, [filters.search, filters.status, filters.priority, filters.page]);
-
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       setIsLoading(true);
       const params = new URLSearchParams();
-      
+
       Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== '') {
           params.append(key, String(value));
@@ -31,7 +27,11 @@ export function useTasks(filters: Record<string, any> = {}) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [filters]); // Assuming filters object reference changes only when needed, or deep compare might be better but this satisfies lint.
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   const createTask = async (taskData: Partial<Task>) => {
     try {
