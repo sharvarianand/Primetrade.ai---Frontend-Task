@@ -57,7 +57,11 @@ export function AIChatbot() {
                         description: 'Created via AI Assistant',
                         status: 'pending',
                         priority: 'medium',
-                        dueDate: new Date().toISOString(),
+                        dueDate: (() => {
+                            const date = new Date();
+                            date.setHours(23, 59, 59, 999);
+                            return date.toISOString();
+                        })(),
                     });
                     return `I've created a new task for you: "${title}"`;
                 } else {

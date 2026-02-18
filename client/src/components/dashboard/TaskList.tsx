@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
 import { Edit2, Trash2, Calendar } from 'lucide-react';
-import { formatDate } from '@/lib/utils';
+import { formatDate, isOverdue } from '@/lib/utils';
 import type { Task } from '@/types';
 
 interface TaskListProps {
@@ -91,9 +91,10 @@ export function TaskList({ tasks, onEdit, onDelete }: TaskListProps) {
                   </Badge>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center text-sm text-text-secondary">
+                  <div className={`flex items-center text-sm ${isOverdue(task.dueDate, task.status) ? 'text-red-400 font-medium' : 'text-text-secondary'}`}>
                     <Calendar size={14} className="mr-2" />
                     {formatDate(task.dueDate)}
+                    {isOverdue(task.dueDate, task.status) && <span className="ml-1">(Overdue)</span>}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">

@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/button';
 import { Edit2, Trash2, Calendar } from 'lucide-react';
-import { formatDate, truncate } from '@/lib/utils';
+import { formatDate, truncate, isOverdue } from '@/lib/utils';
 import type { Task } from '@/types';
 
 interface TaskCardProps {
@@ -77,14 +77,14 @@ export function TaskCard({ task, onEdit, onDelete, index }: TaskCardProps) {
         </div>
 
         <div className="relative z-10 mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
-          <div className={`flex items-center space-x-2 text-xs ${new Date(task.dueDate || '').getTime() < Date.now() && task.status !== 'completed'
+          <div className={`flex items-center space-x-2 text-xs ${isOverdue(task.dueDate, task.status)
             ? 'text-red-400 font-medium'
             : 'text-white/40'
             }`}>
             <Calendar size={14} />
             <span>
               {formatDate(task.dueDate)}
-              {new Date(task.dueDate || '').getTime() < Date.now() && task.status !== 'completed' && ' (Overdue)'}
+              {isOverdue(task.dueDate, task.status) && ' (Overdue)'}
             </span>
           </div>
 
