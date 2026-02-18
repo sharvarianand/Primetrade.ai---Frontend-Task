@@ -1,5 +1,7 @@
 # PrimeTrade Task Management System 🚀
 
+**Live Demo:** [https://primetrade-ai-frontend-task-nu.vercel.app/](https://primetrade-ai-frontend-task-nu.vercel.app/)
+
 A full-stack, production-ready task management application with AI-powered assistance, built with modern technologies and best practices. This project demonstrates scalable architecture, stunning UI/UX with premium dark theme, and comprehensive functionality.
 
 ![Project Status](https://img.shields.io/badge/status-production--ready-success)
@@ -528,6 +530,8 @@ The AI assistant is **completely self-contained** and requires **no external API
 
 ## 🚢 Deployment
 
+**Live Application URL:** [https://primetrade-ai-frontend-task-nu.vercel.app/](https://primetrade-ai-frontend-task-nu.vercel.app/)
+
 ### Frontend (Vercel)
 ```bash
 cd client
@@ -587,6 +591,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Built for PrimeTrade.ai Frontend Developer Internship Task**
+
+**Live Demo:** [https://primetrade-ai-frontend-task-nu.vercel.app/](https://primetrade-ai-frontend-task-nu.vercel.app/)
 
 **Developed by:** Sharvari Anand  
 **Contact:** saami@primetrade.ai, nagasai@primetrade.ai, chetan@primetrade.ai  
