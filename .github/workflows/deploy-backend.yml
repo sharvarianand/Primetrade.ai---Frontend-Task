@@ -18,14 +18,18 @@ jobs:
       - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          HF_USERNAME: sharvarianand
-          SPACE_NAME: Primetrade.ai
         run: |
+          # Verify token is available
+          if [ -z "$HF_TOKEN" ]; then
+            echo "Error: HF_TOKEN is not set"
+            exit 1
+          fi
+          
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
           # Clone the HF Space repo with credentials
-          git clone https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME space_repo
+          git clone https://sharvarianand:$HF_TOKEN@huggingface.co/spaces/sharvarianand/Primetrade.ai space_repo
           
           # Remove existing files in space_repo to ensure a clean sync (excluding .git)
           find space_repo -mindepth 1 -not -path 'space_repo/.git*' -delete
@@ -35,9 +39,16 @@ jobs:
           
           cd space_repo
           
-          # Configure git remote with token for push
-          git remote set-url origin https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME
+          # Configure git to use token for authentication
+          git config credential.helper store
+          echo "https://sharvarianand:$HF_TOKEN@huggingface.co" > ~/.git-credentials
           
           git add .
-          git commit -m "deploy: sync backend from github commit ${GITHUB_SHA::7}" || echo "No changes to commit"
-          git push origin main
+          
+          # Commit changes (exit gracefully if no changes)
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "deploy: sync backend from github commit ${GITHUB_SHA::7}"
+            git push https://sharvarianand:$HF_TOKEN@huggingface.co/spaces/sharvarianand/Primetrade.ai main
+          fi
