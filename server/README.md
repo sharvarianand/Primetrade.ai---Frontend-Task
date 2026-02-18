@@ -1,5 +1,5 @@
 ---
-title: PrimeTrade Fullstack Backend
+title: Primetrade.ai Backend
 emoji: ⚡
 colorFrom: indigo
 colorTo: purple
@@ -10,10 +10,11 @@ app_port: 7860
 
 # PrimeTrade Backend
 
-Express.js backend for the PrimeTrade Task Management application. This Docker Space hosts the API.
+Express.js backend API for the PrimeTrade Task Management application.
 
-## Endpoints
+## API Endpoints
 
-- Base URL: `https://huggingface.co/spaces/<your-username>/<space-name>`
-- `/api/health`: Health check
-- `/api/tasks`: Get all tasks
+- `/api/health` - Health check
+- `/api/auth` - Authentication routes
+- `/api/tasks` - Task CRUD operations
+- `/api/users` - User profile routes
