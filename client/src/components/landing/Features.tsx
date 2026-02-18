@@ -40,7 +40,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
+    <section id="features" className="relative py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-10" />
 
       {/* Beams Background */}

@@ -1,12 +1,12 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { Bell, Search, User as UserIcon } from 'lucide-react';
+import { Bell, Search, User as UserIcon, Menu } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { useState } from 'react';
 import { cn, getInitials } from '@/lib/utils';
 
-export function Topbar({ onSearch }: { onSearch?: (value: string) => void }) {
+export function Topbar({ onSearch, onToggleSidebar, isCollapsed }: { onSearch?: (value: string) => void; onToggleSidebar?: () => void; isCollapsed?: boolean }) {
   const { user } = useAuth();
   const [searchValue, setSearchValue] = useState('');
 
@@ -17,17 +17,29 @@ export function Topbar({ onSearch }: { onSearch?: (value: string) => void }) {
   };
 
   return (
-    <header className="fixed top-0 right-0 left-[260px] h-20 bg-black/40 backdrop-blur-xl border-b border-white/10 z-40 px-8 flex items-center justify-between transition-all duration-300">
-      <div className="flex-1 max-w-xl">
-        <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 group-focus-within:text-white/80 transition-colors" />
-          <Input
-            type="text"
-            placeholder="Search tasks..."
-            value={searchValue}
-            onChange={handleSearch}
-            className="pl-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-1 focus-visible:ring-white/20 focus-visible:border-white/20 hover:bg-white/10 transition-all rounded-xl"
-          />
+    <header className={cn(
+      "fixed top-0 right-0 h-20 bg-black/40 backdrop-blur-xl border-b border-white/10 z-40 px-4 md:px-8 flex items-center justify-between transition-all duration-300",
+      "left-0",
+      !isCollapsed ? "md:left-[260px]" : "md:left-16"
+    )}>
+      <div className="flex items-center gap-4 flex-1">
+        <button
+          onClick={onToggleSidebar}
+          className="p-2 rounded-lg hover:bg-white/10 transition-colors text-white/70 hover:text-white md:hidden"
+        >
+          <Menu size={24} />
+        </button>
+        <div className="flex-1 max-w-xl">
+          <div className="relative group">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 group-focus-within:text-white/80 transition-colors" />
+            <Input
+              type="text"
+              placeholder="Search tasks..."
+              value={searchValue}
+              onChange={handleSearch}
+              className="pl-10 h-11 bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-1 focus-visible:ring-white/20 focus-visible:border-white/20 hover:bg-white/10 transition-all rounded-xl"
+            />
+          </div>
         </div>
       </div>
 

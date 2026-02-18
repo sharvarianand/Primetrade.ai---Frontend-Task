@@ -190,7 +190,7 @@ export default function EtherealBeamsHero() {
                     duration: 1,
                     ease: "easeOut"
                 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+                className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
             >
                 <button
                     onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}

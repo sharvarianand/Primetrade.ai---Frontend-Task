@@ -31,7 +31,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
+    <section id="testimonials" className="relative py-20 md:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black">
       {/* Beams Background */}
       <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
         <Beams

@@ -7,12 +7,27 @@ import { Beams } from '@/components/ui/beams-background';
 
 import { AIChatbot } from '@/components/dashboard/AIChatbot';
 import { TaskProvider } from '@/context/TaskContext';
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (window.innerWidth < 768) {
+        setIsCollapsed(true);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <ProtectedRoute>
       <TaskProvider>
@@ -33,10 +48,16 @@ export default function DashboardLayout({
           {/* Radial Gradient Overlay */}
           <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/10 via-black/80 to-black pointer-events-none" />
 
-          <Sidebar />
-          <div className="ml-[260px] relative z-10 transition-all duration-300">
-            <Topbar />
-            <main className="pt-24 p-8 max-w-7xl mx-auto min-h-screen">
+          <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          <div className={cn(
+            "relative z-10 transition-all duration-300",
+            !isCollapsed ? "md:ml-[260px]" : "md:ml-16"
+          )}>
+            <Topbar
+              onToggleSidebar={() => setIsCollapsed(!isCollapsed)}
+              isCollapsed={isCollapsed}
+            />
+            <main className="pt-24 p-4 md:p-8 max-w-7xl mx-auto min-h-screen">
               {children}
             </main>
           </div>
