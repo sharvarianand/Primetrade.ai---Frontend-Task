@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'PrimeTrade Tasks - Manage Tasks, Boost Productivity',
   description: 'The ultimate task management platform for teams and individuals.',
   icons: {
-    icon: '/favicon.png',
+    icon: '/favicon.svg',
   },
 };
 

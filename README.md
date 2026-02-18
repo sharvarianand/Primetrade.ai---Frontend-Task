@@ -143,7 +143,7 @@ FrontendTaskGLM5/
 ├── client/                          # Next.js Frontend
 │   ├── public/
 │   │   ├── chatbot-avatar.png       # AI assistant avatar
-│   │   └── favicon.png              # App favicon
+│   │   └── favicon.svg              # App favicon (B&W)
 │   ├── src/
 │   │   ├── app/                     # Next.js App Router pages
 │   │   │   ├── (auth)/              # Auth route group
