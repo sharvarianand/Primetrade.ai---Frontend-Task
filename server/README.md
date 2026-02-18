@@ -12,6 +12,8 @@ app_port: 7860
 
 Express.js backend API for the PrimeTrade Task Management application.
 
+**🚀 Live API:** https://sharvarianand-primetrade-ai.hf.space
+
 ## API Endpoints
 
 - `/api/health` - Health check
